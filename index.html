@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Calculadora orientativa de paneles y strings para bombas solares con variador VEICHI SI23.">
+  <title>Calculadora solar · AS Electric</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23092b3a'/%3E%3Cpath d='M34 7 18 35h12l-2 22 18-31H34z' fill='%23ffd166'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">AS</span><div><strong>AS Electric</strong><small>Calculadora solar para bombeo</small></div></div>
+    <span class="status" id="dataStatus">Cargando catálogo…</span>
+  </header>
+
+  <main class="workspace">
+    <section class="form-panel" aria-labelledby="calculatorTitle">
+      <div class="section-heading"><span>01</span><div><h1 id="calculatorTitle">Datos del equipo</h1><p>Introduce los valores conocidos. Los campos avanzados aparecen solo cuando son necesarios.</p></div></div>
+
+      <form id="calculatorForm">
+        <fieldset>
+          <legend>Bomba</legend>
+          <div class="grid three">
+            <label>Dato disponible<select id="pumpUnit"><option value="cv">Potencia en CV</option><option value="kw">Potencia en kW</option><option value="amp">Intensidad en amperios</option></select></label>
+            <label><span id="pumpValueLabel">Potencia de la bomba (CV)</span><input id="pumpValue" type="number" min="0.1" step="0.1" value="7.5" required></label>
+            <label>Tensión del motor (V)<select id="motorVoltage"><option>400</option><option>380</option><option>230</option></select></label>
+          </div>
+          <div class="grid three advanced hidden" id="ampFields">
+            <label>Fases<select id="motorPhases"><option value="3">Trifásico</option><option value="1">Monofásico</option></select></label>
+            <label>Cos φ<input id="powerFactor" type="number" min="0.1" max="1" step="0.01" value="0.82"></label>
+            <label>Rendimiento (%)<input id="efficiency" type="number" min="10" max="100" step="1" value="88"></label>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Variador</legend>
+          <label>Modelo<select id="inverterSelect"></select></label>
+          <div class="grid three advanced hidden" id="customInverterFields">
+            <label>Potencia motor (kW)<input id="invMotorKw" type="number" min="0.1" step="0.1" value="7.5"></label>
+            <label>Tensión DC máxima (V)<input id="invMaxDc" type="number" min="50" step="1" value="780"></label>
+            <label>Corriente DC máxima (A)<input id="invMaxCurrent" type="number" min="0" step="0.1" placeholder="Si se conoce"></label>
+            <label>MPPT mínimo (V)<input id="invMpptMin" type="number" min="0" step="1" value="480"></label>
+            <label>MPPT máximo (V)<input id="invMpptMax" type="number" min="0" step="1" value="560"></label>
+            <label>Potencia FV recomendada (kW)<input id="invPvKw" type="number" min="0" step="0.1" placeholder="Opcional"></label>
+            <label>Protección bus bajo (V)<input id="invUnderVoltage" type="number" min="0" step="1" value="330"></label>
+            <label>Tensión de rearranque (V)<input id="invWakeVoltage" type="number" min="0" step="1" value="400"></label>
+            <label>Referencia bus bajo (V)<input id="invLowBus" type="number" min="0" step="1" value="430"></label>
+          </div>
+          <div class="spec-strip" id="inverterSpecs"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Placa solar</legend>
+          <label>Marca y modelo<select id="panelSelect"></select></label>
+          <div class="grid three advanced hidden" id="customPanelFields">
+            <label>Potencia Wp<input id="panelWp" type="number" min="1" step="1"></label>
+            <label>Voc (V)<input id="panelVoc" type="number" min="1" step="0.01"></label>
+            <label>Vmp (V)<input id="panelVmp" type="number" min="1" step="0.01"></label>
+            <label>Isc (A)<input id="panelIsc" type="number" min="0.1" step="0.01"></label>
+            <label>Imp (A)<input id="panelImp" type="number" min="0.1" step="0.01"></label>
+            <label>Coef. Voc (%/°C)<input id="panelTempVoc" type="number" max="0" step="0.001"></label>
+          </div>
+          <div class="spec-strip" id="panelSpecs"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Condiciones de diseño</legend>
+          <div class="grid three">
+            <label>Perfil solar<select id="solarProfile"></select></label>
+            <label>Mes del cálculo<select id="profileMonth"><option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6" selected>Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option></select></label>
+            <label>Temperatura mínima (°C)<input id="minTemp" type="number" min="-40" max="25" step="1" value="-5"></label>
+          </div>
+          <p class="data-note">Perfil medio mensual PVGIS-SARAH3: plano fijo a 30°, orientación sur y hora local estándar. La irradiación no es editable.</p>
+        </fieldset>
+
+        <button class="calculate" type="submit">Calcular instalación <span>→</span></button>
+        <p class="form-note">Cálculo preliminar. El diseño definitivo debe contrastarse con las fichas técnicas, protecciones, cableado y condiciones reales de la instalación.</p>
+      </form>
+    </section>
+
+    <aside class="results-panel" aria-live="polite">
+      <div class="results-header"><div><span>RESULTADO</span><h2>Configuraciones recomendadas</h2></div><div class="pump-badge"><small>Bomba estimada</small><strong id="pumpKwResult">— kW</strong></div></div>
+      <div id="emptyResult" class="empty-result"><div class="sun-ring">☀</div><p>Completa los datos y pulsa <strong>Calcular instalación</strong>.</p></div>
+      <div id="results" class="hidden">
+        <div class="selection-summary" id="selectionSummary"></div>
+        <div id="globalAlerts"></div>
+        <div class="option-card central" id="centralResult"></div>
+        <div class="option-card extended" id="extendedResult"></div>
+        <details><summary>Cómo se ha calculado</summary><div id="methodology"></div></details>
+      </div>
+    </aside>
+  </main>
+  <section class="analysis-panel hidden" id="analysisPanel" aria-live="polite">
+    <div class="comparison-card"><div class="comparison-heading"><div><span>COMPARACIÓN HORARIA</span><h3>Placas necesarias según potencia y hora</h3></div><strong id="requiredDcPower"></strong></div><div id="solarComparison"></div></div>
+  </section>
+  <footer><span>AS Electric · Herramienta de predimensionamiento</span><span id="catalogVersion"></span></footer>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+{
+  "version": "1.4.3",
+  "provinces": [
+    {
+      "id": "albatera",
+      "name": "Albatera · Alicante",
+      "latitude": 38.179,
+      "longitude": -0.87
+    },
+    {
+      "id": "murcia",
+      "name": "Murcia",
+      "latitude": 37.992,
+      "longitude": -1.13
+    },
+    {
+      "id": "albacete",
+      "name": "Albacete",
+      "latitude": 38.995,
+      "longitude": -1.856
+    },
+    {
+      "id": "almeria",
+      "name": "Almería · Andalucía",
+      "latitude": 36.834,
+      "longitude": -2.463
+    },
+    {
+      "id": "cordoba",
+      "name": "Córdoba · Andalucía",
+      "latitude": 37.888,
+      "longitude": -4.779
+    },
+    {
+      "id": "sevilla",
+      "name": "Sevilla · Andalucía",
+      "latitude": 37.389,
+      "longitude": -5.984
+    },
+    {
+      "id": "jaen",
+      "name": "Jaén · Andalucía",
+      "latitude": 37.779,
+      "longitude": -3.784
+    },
+    {
+      "id": "huelva",
+      "name": "Huelva · Andalucía",
+      "latitude": 37.261,
+      "longitude": -6.944
+    },
+    {
+      "id": "badajoz",
+      "name": "Badajoz · Extremadura",
+      "latitude": 38.879,
+      "longitude": -6.97
+    },
+    {
+      "id": "valencia",
+      "name": "Valencia",
+      "latitude": 39.47,
+      "longitude": -0.376
+    },
+    {
+      "id": "zaragoza",
+      "name": "Zaragoza · Aragón",
+      "latitude": 41.649,
+      "longitude": -0.889
+    },
+    {
+      "id": "lleida",
+      "name": "Lleida · Cataluña",
+      "latitude": 41.617,
+      "longitude": 0.62
+    }
+  ]
+}
